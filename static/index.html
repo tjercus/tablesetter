@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <style type="text/css" rel="stylesheet">
+      #root button {
+        margin: 0.5em;
+      }
+      .tableTable td img {
+        max-height: 9em;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://unpkg.com/preact"></script>
+    <script>
+      const { createElement, render, Component } = preact;
+      const h = createElement;
+
+      const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      };
+
+      class App extends Component {
+
+        constructor(props) {
+          super(props);
+          this.state = {
+            people: ["tjerk", "tineke", "nora", "abby"]
+          };
+        }
+
+        onClickHandler() {
+          this.setState({people: shuffleArray(this.state.people)});
+        }
+
+        render() {
+          return h("div", {className: "row"}, [
+            h("div", {className: "col s12"}, [
+              h("main", {className: "center-align"}, [
+                h("button", {
+                  className: "btn red",
+                  onClick: this.onClickHandler.bind(this)
+                }, "Wie zit waar?"),
+                h("table", {className:"tableTable"}, [
+                    h("tbody", {}, [
+                      h("tr", {}, [
+                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[0] + ".png"})]),
+                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[1] + ".png"})])
+                      ]),
+                      h("tr", {}, [
+                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[2] + ".png"})]),
+                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[3] + ".png"})])
+                      ])
+                    ])],
+                  h("footer", {}, "RoboTjercus Edutainment 2017")
+                )]
+              )]
+            )]
+          );
+        }
+      }
+
+    </script>
+
+    <title>TableSetter</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" className="container"></div>
+  </body>
+  <script>
+    render(h(App), document.getElementById("root"));
+  </script>
+</html>
