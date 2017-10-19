@@ -76,6 +76,8 @@
         }
 
         render() {
+          let progressClassNames = (this.state.progress === 0) ? "hide" : "progress";
+          let buttonClassNames = (this.state.progress === 0 || this.state.progress === 100) ? "btn red waves-effect waves-light" : "hide";
           return h("div", {className: "row"}, [
             h("div", {className: "col s12"}, [
               h("main", {className: "center-align"}, [
@@ -91,11 +93,11 @@
                     ])
                   ])]
                 ),
-                h("div", {className: "progress"},
+                h("div", {className: progressClassNames},
                   [h("div", {className:"determinate", style: "width: " + this.state.progress + "%"})]
                 ),
                 h("button", {
-                  className: "waves-effect waves-light btn red",
+                  className: buttonClassNames,
                   onClick: this.onClickHandler.bind(this)
                 }, "Wie zit waar?")
                 ]
