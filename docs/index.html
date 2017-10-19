@@ -8,13 +8,15 @@
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
     <style type="text/css" rel="stylesheet">
       #root button {
-        margin-top: 1.5em;
+        margin-top: 1em;
       }
       .tableTable td img {
-        max-width: 9em;
+        max-width: 10em;
       }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
     <script src="https://unpkg.com/preact"></script>
     <script>
       const { createElement, render, Component } = preact;
@@ -45,23 +47,22 @@
           return h("div", {className: "row"}, [
             h("div", {className: "col s12"}, [
               h("main", {className: "center-align"}, [
-                h("button", {
-                  className: "waves-effect waves-light btn red",
-                  onClick: this.onClickHandler.bind(this)
-                }, "Wie zit waar?"),
                 h("table", {className:"tableTable"}, [
                     h("tbody", {}, [
                       h("tr", {}, [
-                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[0] + ".png"})]),
-                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[1] + ".png"})])
+                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[0] + ".png", "className": "z-depth-3"})]),
+                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[1] + ".png", "className": "z-depth-3"})])
                       ]),
                       h("tr", {}, [
-                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[2] + ".png"})]),
-                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[3] + ".png"})])
+                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[2] + ".png", "className": "z-depth-3"})]),
+                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[3] + ".png", "className": "z-depth-3"})])
                       ])
-                    ])],
-                  h("footer", {}, "RoboTjercus 2017")
-                )]
+                    ])]
+                ), h("button", {
+                    className: "waves-effect waves-light btn red",
+                    onClick: this.onClickHandler.bind(this)
+                  }, "Wie zit waar?")
+                ]
               )]
             )]
           );
