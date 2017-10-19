@@ -47,17 +47,32 @@
         return array;
       };
 
+      const updateProgressInState = (state, props) => {
+        return {
+          progress: state.progress + 20
+        }
+      };
+
+      const resetProgressInState = (state, props) => {
+        return {
+          progress: 0
+        }
+      };
+
       class App extends Component {
 
         constructor(props) {
           super(props);
           this.state = {
-            people: ["tjerk", "tineke", "nora", "abby"]
-          };
+            people: ["tjerk", "tineke", "nora", "abby"],
+            progress: 0
+          }
         }
 
         onClickHandler() {
-          repeatXI(() => this.setState({people: shuffleArray(this.state.people)}), 1000, 5);
+          this.setState(resetProgressInState);
+          repeatXI(() => this.setState({people: shuffleArray(this.state.people)},
+            () => {this.setState(updateProgressInState)}), 1000, 5);
         }
 
         render() {
@@ -65,20 +80,24 @@
             h("div", {className: "col s12"}, [
               h("main", {className: "center-align"}, [
                 h("table", {className:"tableTable"}, [
-                    h("tbody", {}, [
-                      h("tr", {}, [
-                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[0] + ".png", "className": "z-depth-3"})]),
-                        h("td", {}, "Raamkant", [h("img", {src: this.state.people[1] + ".png", "className": "z-depth-3"})])
-                      ]),
-                      h("tr", {}, [
-                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[2] + ".png", "className": "z-depth-3"})]),
-                        h("td", {}, "Muurkant", [h("img", {src: this.state.people[3] + ".png", "className": "z-depth-3"})])
-                      ])
-                    ])]
-                ), h("button", {
-                    className: "waves-effect waves-light btn red",
-                    onClick: this.onClickHandler.bind(this)
-                  }, "Wie zit waar?")
+                  h("tbody", {}, [
+                    h("tr", {}, [
+                      h("td", {}, "Raamkant", [h("img", {src: this.state.people[0] + ".png", "className": "z-depth-3"})]),
+                      h("td", {}, "Raamkant", [h("img", {src: this.state.people[1] + ".png", "className": "z-depth-3"})])
+                    ]),
+                    h("tr", {}, [
+                      h("td", {}, "Muurkant", [h("img", {src: this.state.people[2] + ".png", "className": "z-depth-3"})]),
+                      h("td", {}, "Muurkant", [h("img", {src: this.state.people[3] + ".png", "className": "z-depth-3"})])
+                    ])
+                  ])]
+                ),
+                h("div", {className: "progress"},
+                  [h("div", {className:"determinate", style: "width: " + this.state.progress + "%"})]
+                ),
+                h("button", {
+                  className: "waves-effect waves-light btn red",
+                  onClick: this.onClickHandler.bind(this)
+                }, "Wie zit waar?")
                 ]
               )]
             )]
